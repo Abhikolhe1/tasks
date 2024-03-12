@@ -67,32 +67,11 @@ const App = () => {
         console.error(error);
       }
     }
-    const PutTask = async (newTaskText) => {
-      try {
-        const response = await axios.post(`http://localhost:3001/tasks ${tasks.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ text: newTaskText }),
-        });
-    
-        if (!response.ok) {
-          throw new Error('Failed to UPDATE task');
-        }
-        const data = await response.json();
-
-        setTasks((prevTasks) => [...prevTasks, data]);
-      } catch (error) {
-        console.error(error);
-        // Handle error in UI
-      }
-    }
+  
     
 
     fetchTasks();
     PostTask();
-    PutTask();
     
     
   }, [tasks.id]);
@@ -125,52 +104,8 @@ const App = () => {
       }
     } catch (error) {
       console.error('Error toggling task completion:', error);
-    }
-    // const updatedTasks = tasks.map((task) =>
-    //   task._id === taskId ? { ...task, completed: !task.completed } : task
-      
-    // );
-
-   
+    }   
   };
-  // const toggleTaskCompletion = async (taskId) => {
-    
-  //   try {
-  //     const response = await axios.put(`http://localhost:3001/tasks/${taskId}`,
-  //      { completed: !tasks.find(task => task._id === taskId).completed });
-  //     if (response.status === 200) {
-  //       const updatedTasks = tasks.map((task) =>
-  //         task._id === taskId ? { ...task, completed: !task.completed } : task
-  //       );
-  
-  //       setTasks(updatedTasks);
-  //     } else {
-  //       console.error('Failed to update task:', response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error toggling task completion:', error);
-  //   }
-  // };
-  // const toggleTaskCompletion = async (taskId) => {
-    // console.log('Toggle Task Completion called with taskId:', taskId);
-    // try {
-    //   const response = await axios.put(`http://localhost:3001/tasks/${taskId}`, {
-    //     completed: !tasks.find((task) => task._id === taskId).completed,
-    //   });
-    //   if (response.status === 200) {
-    //     const updatedTasks = tasks.map((task) =>
-    //       task._id === taskId ? { ...task, completed: !task.completed } : task
-    //     );
-
-    //     setTasks(updatedTasks);
-    //   } else {
-    //     console.error('Failed to update task:', response.data);
-    //   }
-    // } catch (error) {
-    //   console.error('Error toggling task completion:', error);
-    // }
-  // };
-  
 
   const deleteTask = (taskId) => {
     const updatedTasks = tasks.filter((task) => task._id !== taskId);
